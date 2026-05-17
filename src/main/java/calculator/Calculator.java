@@ -42,8 +42,20 @@ public class Calculator extends JFrame {
     private void setupOperationSelector() {
         operations = new HashMap<>();
         operations.put("Add", new Add());
+        operations.put("Sub", new Sub());
 
-        // TODO
+        operations.put("Mul", new Operation() {
+            @Override
+            public int doOperation(int a, int b) {
+                return a * b;
+            }
+        });
+
+        operations.put("Div", (a, b) -> a / b);
+
+
+
+        // TODO..
         // Add a new operation "Sub" for the subtraction of two integers as an (instance of a) Java
         // class (you have yet to write this class)
 
@@ -58,7 +70,7 @@ public class Calculator extends JFrame {
 
         // TODO
         // Replace the anonymous class with a lambda expression
-        operationSelector.addActionListener(
+        /*operationSelector.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -68,7 +80,15 @@ public class Calculator extends JFrame {
                             System.out.println("Invalid input.");
                         }
                     }
-                });
+                });*/
+        operationSelector.addActionListener(e -> {
+            try {
+                result.setText("" + calculate());
+            } catch (NumberFormatException ex) {
+                System.out.println("Invalid input.");
+            }
+        });
+
     }
 
     /**
